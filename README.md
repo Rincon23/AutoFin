@@ -191,14 +191,12 @@ Despesa registrada com sucesso! ✅
 
 ## 🧑‍💻 Autor
 
-Desenvolvido por você 🚀
+Desenvolvido por Gabriel Mello🚀
 
 ---
 
 ## ⭐ Contribuição
 
-Pull requests são bem-vindos!
-Sinta-se livre para melhorar essa automação.
 
 ---
 
