@@ -1,0 +1,276 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "id": "0c2252bf-767b-44b1-8a2a-411072adab3e",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        192
+      ],
+      "webhookId": "6a299839-242f-42a2-adaf-8d6698933561",
+      "credentials": {
+        "telegramApi": {
+          "id": "WJLQKbYF3HMNMB5R",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "435a74f1-2c0a-471c-a147-55f3c2590487",
+              "leftValue": "={{ $json.message.voice.mime_type }}",
+              "rightValue": "=audio/ogg",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "926ae349-3332-42fc-a0f1-b806aeb4b840",
+      "name": "É Áudio?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        192
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "id": "da44a862-f3a6-428b-bd5a-e6fbea3474ea",
+      "name": "Telegram GetFile (áudio)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        176
+      ],
+      "webhookId": "4c6deb3b-e345-4bc0-afb0-a71b019c5f63",
+      "alwaysOutputData": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "WJLQKbYF3HMNMB5R",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é **transcrever o áudio** e **extrair os seguintes dados de uma despesa**:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada (ex: \"almoço na padaria\", \"uber para o trabalho\", \"remédio na farmácia\").\n- \"categoria\": classifique em uma das opções: [\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n- \"data\": use o formato ISO (YYYY-MM-DD).  \n  - Se o áudio mencionar “hoje”, “ontem” ou um dia da semana, interprete em relação à **data da mensagem** (DataMensagem: {{ new Date($node[\"Telegram Trigger\"].json.message.date * 1000).toISOString().slice(0,10) }}).\n- \"valor\": número em reais (aceite expressões como “45 reais”, “R$ 23,50”, “vinte e cinco reais”).  \n  - Se o valor não for mencionado, coloque 0.\n  \nImportante:\n- Sempre responda **somente JSON válido**, sem texto extra, explicações ou comentários. \n- Não adicione \"```json\" no inicio comece direto em \"{\",  .\n- Não invente valores nem categorias — se não tiver certeza, use “Outros”.\n- Se o áudio mencionar a forma de pagamento, adicione também o campo meio_pagamento (ex: débito, crédito, pix, dinheiro).\n- Exemplo de saída:\n{\n  \"descricao\": \"almoço no restaurante\",\n  \"categoria\": \"Alimentação\",\n  \"data\": \"2025-10-28\",\n  \"valor\": 45.90\n}\n",
+        "inputType": "binary",
+        "binaryPropertyName": "=data",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        176
+      ],
+      "id": "0fb0cba3-a8bb-49f5-b467-ecc466401626",
+      "name": "Analyze audio",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "lrMdqfcYvAdCyL3p",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "356e083a-df22-805d-ab33-e01a5f1a9510",
+          "mode": "list",
+          "cachedResultName": "Transações Financeiras",
+          "cachedResultUrl": "https://www.notion.so/356e083adf22805dab33e01a5f1a9510"
+        },
+        "title": "Transações Financeiras",
+        "simple": false,
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Descrição|title",
+              "title": "={{ $json.descricao }}"
+            },
+            {
+              "key": "Categoria|select",
+              "selectValue": "={{ $json.categoria }}"
+            },
+            {
+              "key": "Valor|number",
+              "numberValue": "={{ $json.valor }}"
+            },
+            {
+              "key": "Data|date",
+              "includeTime": false,
+              "date": "={{ $json.data }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -192,
+        176
+      ],
+      "id": "b3d90ea8-e8bd-4f1b-9377-ffc6107152de",
+      "name": "Create a database page",
+      "alwaysOutputData": false,
+      "credentials": {
+        "notionApi": {
+          "id": "uaKgDDnK1e29bN1v",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// pegue o texto do nó do Gemini\nconst raw = $input.first().json.content.parts[0].text\n\n// remove cercas de markdown tipo ```json ... ```\nlet cleaned = raw.trim()\n  .replace(/^```json\\s*/i, '')\n  .replace(/^```\\s*/i, '')\n  .replace(/```$/i, '')\n  .replace(/^\\uFEFF/, ''); // remove BOM se existir\n\n\nlet data;\ntry {\n  data = JSON.parse(cleaned);\n} catch (e) {\n  throw new Error(\"Não consegui fazer JSON.parse do retorno do modelo. Conteúdo:\\n\" + cleaned);\n}\n\n// agora 'data' é um objeto JS\nreturn [{\n  descricao: data.descricao || '',\n  categoria: data.categoria || 'Outros',\n  data: data.data || new Date().toISOString().slice(0,10),\n  valor: Number(data.valor) || 0\n}];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        176
+      ],
+      "id": "31acb144-6530-4b63-b5b6-6e0d1bfdc41d",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Despesa registrada com sucesso! ✅",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        176
+      ],
+      "id": "1448cb40-9003-492f-b466-43cfde9b4f5a",
+      "name": "Send a text message",
+      "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
+      "credentials": {
+        "telegramApi": {
+          "id": "WJLQKbYF3HMNMB5R",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "É Áudio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É Áudio?": {
+      "main": [
+        [
+          {
+            "node": "Telegram GetFile (áudio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram GetFile (áudio)": {
+      "main": [
+        [
+          {
+            "node": "Analyze audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze audio": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a database page": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35f0b84c839742f665edec916e5243d1b6540db23adc371e6396ca7ed1bdbdbb"
+  }
+}
