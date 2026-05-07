@@ -9,18 +9,18 @@
           "download": true
         }
       },
-      "id": "0c2252bf-767b-44b1-8a2a-411072adab3e",
+      "id": "d7a7a8d9-8650-4c52-8749-16e41feffb5b",
       "name": "Telegram Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        -1280,
-        192
+        -416,
+        240
       ],
       "webhookId": "6a299839-242f-42a2-adaf-8d6698933561",
       "credentials": {
         "telegramApi": {
-          "id": "WJLQKbYF3HMNMB5R",
+          "id": "goG0y76cnfA9VniQ",
           "name": "Telegram account"
         }
       }
@@ -50,13 +50,13 @@
         },
         "options": {}
       },
-      "id": "926ae349-3332-42fc-a0f1-b806aeb4b840",
+      "id": "e4191d87-15a6-4347-9839-a9beb371f427",
       "name": "É Áudio?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -1056,
-        192
+        -224,
+        240
       ],
       "alwaysOutputData": true
     },
@@ -66,19 +66,19 @@
         "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
         "additionalFields": {}
       },
-      "id": "da44a862-f3a6-428b-bd5a-e6fbea3474ea",
+      "id": "254b5b06-7e91-42b3-ad2c-6de0e5025042",
       "name": "Telegram GetFile (áudio)",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        -832,
-        176
+        0,
+        224
       ],
       "webhookId": "4c6deb3b-e345-4bc0-afb0-a71b019c5f63",
       "alwaysOutputData": true,
       "credentials": {
         "telegramApi": {
-          "id": "WJLQKbYF3HMNMB5R",
+          "id": "goG0y76cnfA9VniQ",
           "name": "Telegram account"
         }
       }
@@ -93,7 +93,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é **transcrever o áudio** e **extrair os seguintes dados de uma despesa**:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada (ex: \"almoço na padaria\", \"uber para o trabalho\", \"remédio na farmácia\").\n- \"categoria\": classifique em uma das opções: [\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n- \"data\": use o formato ISO (YYYY-MM-DD).  \n  - Se o áudio mencionar “hoje”, “ontem” ou um dia da semana, interprete em relação à **data da mensagem** (DataMensagem: {{ new Date($node[\"Telegram Trigger\"].json.message.date * 1000).toISOString().slice(0,10) }}).\n- \"valor\": número em reais (aceite expressões como “45 reais”, “R$ 23,50”, “vinte e cinco reais”).  \n  - Se o valor não for mencionado, coloque 0.\n  \nImportante:\n- Sempre responda **somente JSON válido**, sem texto extra, explicações ou comentários. \n- Não adicione \"```json\" no inicio comece direto em \"{\",  .\n- Não invente valores nem categorias — se não tiver certeza, use “Outros”.\n- Se o áudio mencionar a forma de pagamento, adicione também o campo meio_pagamento (ex: débito, crédito, pix, dinheiro).\n- Exemplo de saída:\n{\n  \"descricao\": \"almoço no restaurante\",\n  \"categoria\": \"Alimentação\",\n  \"data\": \"2025-10-28\",\n  \"valor\": 45.90\n}\n",
+        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é transcrever o áudio e extrair os seguintes dados de uma despesa:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada.\n- \"categoria\": classifique em uma das opções:\n[\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n\n- \"data\": use SEMPRE o formato DD-MM-YYYY.\n- Interprete datas relativas usando o horário de Brasília (America/Sao_Paulo UTC-3).\n- A data da mensagem é:\n{{ new Date($node[\"Telegram Trigger\"].json.message.date * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0,10) }}\n\nRegras para datas:\n- “hoje” = data da mensagem\n- “ontem” = data da mensagem -1 dia\n- dias da semana = dia mais recente correspondente antes ou igual à data da mensagem\n\n- \"valor\":\n  - extraia o valor em reais como número decimal.\n  - aceite formatos como:\n    - \"45 reais\"\n    - \"R$ 23,50\"\n    - \"vinte e cinco reais\"\n  - se não houver valor, use 0.\n\n- Se mencionar forma de pagamento, adicionar:\n\"meio_pagamento\"\n\nExemplos:\n- pix\n- crédito\n- débito\n- dinheiro\n\nImportante:\n- Responda SOMENTE JSON válido.\n- Não escreva explicações.\n- Não use markdown.\n- Não use ```json.\n- Comece diretamente com \"{\"\n- Não invente informações.\n- Se não tiver certeza da categoria, use \"Outros\".",
         "inputType": "binary",
         "binaryPropertyName": "=data",
         "options": {}
@@ -101,66 +101,15 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1,
       "position": [
-        -608,
-        176
+        224,
+        224
       ],
-      "id": "0fb0cba3-a8bb-49f5-b467-ecc466401626",
+      "id": "f2f2aa81-6c98-4d37-9d10-e1e525ee648a",
       "name": "Analyze audio",
       "credentials": {
         "googlePalmApi": {
-          "id": "lrMdqfcYvAdCyL3p",
+          "id": "842vRf5BuHTYgxJb",
           "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "databasePage",
-        "databaseId": {
-          "__rl": true,
-          "value": "356e083a-df22-805d-ab33-e01a5f1a9510",
-          "mode": "list",
-          "cachedResultName": "Transações Financeiras",
-          "cachedResultUrl": "https://www.notion.so/356e083adf22805dab33e01a5f1a9510"
-        },
-        "title": "Transações Financeiras",
-        "simple": false,
-        "propertiesUi": {
-          "propertyValues": [
-            {
-              "key": "Descrição|title",
-              "title": "={{ $json.descricao }}"
-            },
-            {
-              "key": "Categoria|select",
-              "selectValue": "={{ $json.categoria }}"
-            },
-            {
-              "key": "Valor|number",
-              "numberValue": "={{ $json.valor }}"
-            },
-            {
-              "key": "Data|date",
-              "includeTime": false,
-              "date": "={{ $json.data }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.notion",
-      "typeVersion": 2.2,
-      "position": [
-        -192,
-        176
-      ],
-      "id": "b3d90ea8-e8bd-4f1b-9377-ffc6107152de",
-      "name": "Create a database page",
-      "alwaysOutputData": false,
-      "credentials": {
-        "notionApi": {
-          "id": "uaKgDDnK1e29bN1v",
-          "name": "Notion account"
         }
       }
     },
@@ -171,31 +120,241 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -400,
-        176
+        432,
+        224
       ],
-      "id": "31acb144-6530-4b63-b5b6-6e0d1bfdc41d",
+      "id": "ec38591d-13ea-47ba-a76a-a133ce1e58e3",
       "name": "Code in JavaScript"
     },
     {
       "parameters": {
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "Despesa registrada com sucesso! ✅",
+        "text": "=Despesa registrada com sucesso! ✅ \n\nDescriçao: {{ $('Append or update row in sheet').item.json['Descrição'] }}\nData: {{ $('Append or update row in sheet').item.json.Data }}\nValor: R${{ $('Append or update row in sheet').item.json.Valor }}\nCategoria: {{ $('Append or update row in sheet').item.json.Categoria }}\n\nSeu saldo atual é de {{ $json['Saldo atual'] }}\n\nPara Cancelar mande um audio falando \"Cancelar\"\n",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        16,
-        176
+        1280,
+        224
       ],
-      "id": "1448cb40-9003-492f-b466-43cfde9b4f5a",
+      "id": "f22909cf-b1d4-4ff6-b019-57007c00f017",
       "name": "Send a text message",
       "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
       "credentials": {
         "telegramApi": {
-          "id": "WJLQKbYF3HMNMB5R",
+          "id": "goG0y76cnfA9VniQ",
           "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs",
+          "mode": "list",
+          "cachedResultName": "AutoFin",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Gastos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Descrição": "={{ $json.descricao }}",
+            "Data": "={{ $json.data }}",
+            "Categoria": "={{ $json.categoria }}",
+            "Valor": "={{ $json.valor }}",
+            "Id": "==ROW()-1",
+            "Dia": "==DIA(INDIRECT(\"C\"&ROW()))"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Descrição",
+              "displayName": "Descrição",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Data",
+              "displayName": "Data",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Valor",
+              "displayName": "Valor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Dia",
+              "displayName": "Dia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        224
+      ],
+      "id": "a9ea752d-48c0-4d9f-a227-7ac82c62361e",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs",
+          "mode": "list",
+          "cachedResultName": "AutoFin",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1191341900,
+          "mode": "list",
+          "cachedResultName": "Saldo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=1191341900"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        848,
+        224
+      ],
+      "id": "d9579dd7-441e-4429-83ab-a8db67ef37e5",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs",
+          "mode": "list",
+          "cachedResultName": "AutoFin",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1191341900,
+          "mode": "list",
+          "cachedResultName": "Saldo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=1191341900"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 2,
+            "Saldo atual": "={{ $json['Saldo atual'] - $('Append or update row in sheet').item.json.Valor}}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Saldo atual",
+              "displayName": "Saldo atual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1056,
+        224
+      ],
+      "id": "dda19e14-6bd7-4ada-ad10-0d1470d1aeee",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
         }
       }
     }
@@ -245,22 +404,49 @@
         ]
       ]
     },
-    "Create a database page": {
+    "Code in JavaScript": {
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Append or update row in sheet",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code in JavaScript": {
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Append or update row in sheet": {
       "main": [
         [
           {
-            "node": "Create a database page",
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
             "type": "main",
             "index": 0
           }
@@ -271,6 +457,6 @@
   "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "35f0b84c839742f665edec916e5243d1b6540db23adc371e6396ca7ed1bdbdbb"
+    "instanceId": "73ad8462663f4c3e50554e0b1dcf6c5ca76fe2bb2d798a5d4058a19b59da7064"
   }
 }
