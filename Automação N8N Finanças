@@ -2,54 +2,6 @@
   "nodes": [
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "/relatorios",
-        "replyMarkup": "replyKeyboard",
-        "replyKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Gasto Diário",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Gasto por Categoria",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "replyKeyboardOptions": {},
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1200,
-        1648
-      ],
-      "id": "7506bd2c-ef6a-4cef-8d43-8b7d282edcdc",
-      "name": "Send a text message3",
-      "webhookId": "132aeacc-5848-40b8-96dc-ec5ac5810824",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "update",
         "documentId": {
           "__rl": true,
@@ -67,7 +19,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "row_number": 2,
-            "Saldo atual": "={{ $json['Saldo atual'] - $('Append or update row in sheet').item.json.Valor}}"
+            "Saldo atual": "={{ $json['Saldo atual'] - $('Append or update row in sheet1').item.json.Valor}}"
           },
           "matchingColumns": [
             "row_number"
@@ -102,14 +54,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1376,
-        -16
+        720,
+        336
       ],
-      "id": "f4ff1858-bd98-41d0-9e7a-baf747f27ec5",
-      "name": "Update row in sheet",
+      "id": "34798b54-297f-4c52-8012-afe52f81e284",
+      "name": "Update row in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -133,14 +85,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1168,
-        -16
+        512,
+        336
       ],
-      "id": "ef96678a-071f-497c-8bdc-ef62a2a94509",
-      "name": "Get row(s) in sheet",
+      "id": "3be05f32-c99b-4b05-808a-7f75f126c621",
+      "name": "Get row(s) in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -238,36 +190,36 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        960,
-        -16
+        304,
+        336
       ],
-      "id": "fe8cf495-7ae1-4512-be65-8867f232b006",
-      "name": "Append or update row in sheet",
+      "id": "0954b576-73a7-42c0-9567-eb28254fd939",
+      "name": "Append or update row in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "=Despesa registrada com sucesso! ✅ \n\nDescriçao: {{ $('Append or update row in sheet').item.json['Descrição'] }}\nData: {{ $('Append or update row in sheet').item.json.Data }}\nValor: R${{ $('Append or update row in sheet').item.json.Valor }}\nCategoria: {{ $('Append or update row in sheet').item.json.Categoria }}\n\nSeu saldo atual é de {{ $json['Saldo atual'] }}\n\nPara Cancelar mande um audio falando \"Cancelar\"\n",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Despesa registrada com sucesso! ✅ \n\nDescriçao: {{ $('Append or update row in sheet1').item.json['Descrição'] }}\nData: {{ $('Append or update row in sheet1').item.json.Data }}\nValor: R${{ $('Append or update row in sheet1').item.json.Valor }}\nCategoria: {{ $('Append or update row in sheet1').item.json.Categoria }}\n\nSeu saldo atual é de {{ $json['Saldo atual'] }}\n\nPara Cancelar mande um audio falando \"Cancelar\"\n",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1600,
-        -16
+        944,
+        336
       ],
-      "id": "f66f8ba4-c8f1-4888-bcae-adbee9a38ec6",
-      "name": "Send a text message",
+      "id": "2d5ec972-a8c5-4162-b483-f6e1997994be",
+      "name": "Send a text message2",
       "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -279,11 +231,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        688,
-        -16
+        -224,
+        352
       ],
-      "id": "1403f94f-f174-4a25-8de9-a947889ce738",
-      "name": "Code in JavaScript"
+      "id": "b59705ad-91dd-44fc-83f2-54b5c95601f5",
+      "name": "Code in JavaScript1"
     },
     {
       "parameters": {
@@ -295,7 +247,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é transcrever o áudio e extrair os seguintes dados de uma despesa:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada.\n- \"categoria\": classifique em uma das opções:\n[\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n\n- \"data\": use SEMPRE o formato DD-MM-YYYY.\n- Interprete datas relativas usando o horário de Brasília (America/Sao_Paulo UTC-3).\n- A data da mensagem é:\n{{ new Date($node[\"Telegram Trigger\"].json.message.date * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0,10) }}\n\nRegras para datas:\n- “hoje” = data da mensagem\n- “ontem” = data da mensagem -1 dia\n- dias da semana = dia mais recente correspondente antes ou igual à data da mensagem\n\n- \"valor\":\n  - extraia o valor em reais como número decimal.\n  - aceite formatos como:\n    - \"45 reais\"\n    - \"R$ 23,50\"\n    - \"vinte e cinco reais\"\n  - se não houver valor, use 0.\n\n- Se mencionar forma de pagamento, adicionar:\n\"meio_pagamento\"\n\nExemplos:\n- pix\n- crédito\n- débito\n- dinheiro\n\nImportante:\n- Responda SOMENTE JSON válido.\n- Não escreva explicações.\n- Não use markdown.\n- Não use ```json.\n- Comece diretamente com \"{\"\n- Não invente informações.\n- Se não tiver certeza da categoria, use \"Outros\".",
+        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é transcrever o áudio e extrair os seguintes dados de uma despesa:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada.\n- \"categoria\": classifique em uma das opções:\n[\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n\n- \"data\": use SEMPRE o formato DD-MM-YYYY.\n- Interprete datas relativas usando o horário de Brasília (America/Sao_Paulo UTC-3).\n- A data da mensagem é:\n{{ new Date($node[\"Telegram Trigger1\"].json.message.date * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0,10) }}\n\nRegras para datas:\n- “hoje” = data da mensagem\n- “ontem” = data da mensagem -1 dia\n- dias da semana = dia mais recente correspondente antes ou igual à data da mensagem\n\n- \"valor\":\n  - extraia o valor em reais como número decimal.\n  - aceite formatos como:\n    - \"45 reais\"\n    - \"R$ 23,50\"\n    - \"vinte e cinco reais\"\n  - se não houver valor, use 0.\n\n- Se mencionar forma de pagamento, adicionar:\n\"meio_pagamento\"\n\nExemplos:\n- pix\n- crédito\n- débito\n- dinheiro\n\nImportante:\n- Responda SOMENTE JSON válido.\n- Não escreva explicações.\n- Não use markdown.\n- Não use ```json.\n- Comece diretamente com \"{\"\n- Não invente informações.\n- Se não tiver certeza da categoria, use \"Outros\".\n- Se não for especificado descrição sempre retornar Null\n- Se não for especificado valor sempre retornar 0",
         "inputType": "binary",
         "binaryPropertyName": "=data",
         "options": {}
@@ -303,37 +255,38 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1,
       "position": [
-        432,
-        -16
+        -512,
+        224
       ],
-      "id": "b80129c4-4726-49c1-9ea0-c2726f87e20b",
-      "name": "Analyze audio",
+      "id": "1c765be8-52dd-436d-947f-fbc74717c41b",
+      "name": "Analyze audio1",
       "credentials": {
         "googlePalmApi": {
-          "id": "842vRf5BuHTYgxJb",
+          "id": "lrMdqfcYvAdCyL3p",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
         "resource": "file",
-        "fileId": "={{ $('Telegram Trigger').item.json.message.voice.file_id }}",
+        "fileId": "={{ $('Telegram Trigger1').item.json.message.voice.file_id }}",
         "additionalFields": {}
       },
-      "id": "e5949d04-e388-4244-b599-322dc71c9ded",
-      "name": "Telegram GetFile (áudio)",
+      "id": "52d0fd9a-7f99-4d90-9b85-161477311177",
+      "name": "Telegram GetFile (áudio)1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        176,
-        -16
+        -720,
+        336
       ],
       "webhookId": "4c6deb3b-e345-4bc0-afb0-a71b019c5f63",
       "alwaysOutputData": true,
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -363,13 +316,13 @@
         },
         "options": {}
       },
-      "id": "770a11c5-8297-451f-a91c-d5ffa3b9e169",
-      "name": "É Áudio?",
+      "id": "dae09f90-d230-4130-96f6-89fce88f3022",
+      "name": "É Áudio?1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -112,
-        0
+        -960,
+        352
       ],
       "alwaysOutputData": false
     },
@@ -382,108 +335,18 @@
           "download": true
         }
       },
-      "id": "101093e4-6a42-407d-92ff-e0b48a1b8721",
-      "name": "Telegram Trigger",
+      "id": "27e809f9-f162-4240-bdce-9282a5e17dda",
+      "name": "Telegram Trigger1",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        -384,
-        0
+        -1232,
+        352
       ],
       "webhookId": "6a299839-242f-42a2-adaf-8d6698933561",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://docs.google.com/spreadsheets/d/1j9nKIWJmvV00oralCMy_SmgF70-lJTg_rMy9tBVC6Z0/export?format=pdf&gid=225434709",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "id": "d7e557cd-58cc-46ea-9681-ecb8b52abcca",
-      "name": "Download Grafico Diario",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1168,
-        1856
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "sendDocument",
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "binaryData": true,
-        "additionalFields": {
-          "caption": "📊 Relatório de Gastos por Dia"
-        }
-      },
-      "id": "cdf54c53-4dfc-4822-b771-ac01ae028023",
-      "name": "Enviar Grafico Diario",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1376,
-        1856
-      ],
-      "webhookId": "a33db522-9638-4fc7-a6f6-5c1753de43d0",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://docs.google.com/spreadsheets/d/1j9nKIWJmvV00oralCMy_SmgF70-lJTg_rMy9tBVC6Z0/export?format=pdf&gid=1763783442",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "id": "4309101d-88ef-4f5a-b30d-131ef2041055",
-      "name": "Download Grafico Categoria",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1168,
-        2016
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "sendDocument",
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "binaryData": true,
-        "additionalFields": {
-          "caption": "📊 Relatório de Gastos por Categoria"
-        }
-      },
-      "id": "e2079ca2-8be4-4cb1-92df-c5d1d8555189",
-      "name": "Enviar Grafico Categoria",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1376,
-        2016
-      ],
-      "webhookId": "c37809f5-7b40-420b-be26-c2fb23426686",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -498,11 +361,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1088,
-        192
+        240,
+        544
       ],
-      "id": "1ec69104-cff6-4a58-9ea3-a584c4e268af",
-      "name": "Sticky Note2"
+      "id": "b02c55ad-adcb-4296-b6ee-def20219c9df",
+      "name": "Sticky Note5"
     },
     {
       "parameters": {
@@ -514,11 +377,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -432,
-        -96
+        -1280,
+        256
       ],
-      "id": "e7629063-3302-4d96-8e33-6362c7b5b5b9",
-      "name": "Sticky Note3"
+      "id": "1bfed6ea-e2ea-400a-83af-b467825f18e0",
+      "name": "Sticky Note10"
     },
     {
       "parameters": {
@@ -530,41 +393,27 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -176,
-        -128
+        -1024,
+        224
       ],
-      "id": "586b76f0-957b-4e9b-bc67-d9a85dee4d41",
-      "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
-        "content": "## Analizador\nEtapa onde se utiliza um agente de ia para separa os dados do audio.",
-        "height": 304,
-        "color": "#5F4389"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        368,
-        -128
-      ],
-      "id": "94a7b847-ce6a-4fae-af7a-c01d315265b4",
-      "name": "Sticky Note6"
+      "id": "41c09306-2815-466f-9185-1eb3e82288fb",
+      "name": "Sticky Note11"
     },
     {
       "parameters": {
         "content": "## Normalização\nProcesso onde os dados se tornam informação.\n",
         "height": 304,
+        "width": 208,
         "color": "#6F7114"
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        624,
-        -128
+        -272,
+        224
       ],
-      "id": "823a151f-9915-43ce-918e-c5cfb15d4afe",
-      "name": "Sticky Note7"
+      "id": "66b13403-441c-4b92-acbc-f6565950936d",
+      "name": "Sticky Note13"
     },
     {
       "parameters": {
@@ -576,31 +425,15 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        864,
-        -128
+        208,
+        224
       ],
-      "id": "3b948760-d4fa-46e9-8282-4777fa06abe4",
-      "name": "Sticky Note8"
+      "id": "35a01b5d-226c-42e3-9d13-15be009eef76",
+      "name": "Sticky Note14"
     },
     {
       "parameters": {
-        "content": "## Confirmação\nResposta de confirmação de correto ou errado.",
-        "height": 304,
-        "width": 256,
-        "color": 5
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        1520,
-        -128
-      ],
-      "id": "deb4e344-c7f4-497e-85fd-be2e8452440a",
-      "name": "Sticky Note9"
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "=Olá Sou seu assitente pessoal de controle de gastos!\n\nO que você precisa?\n\n\n",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -627,80 +460,22 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        464,
-        1440
+        -608,
+        1696
       ],
-      "id": "ddb5ff3f-c7a4-4fda-9e8d-f165dd35ebb9",
-      "name": "Menu",
+      "id": "189891b7-0198-40e8-80c4-19bced38f9a0",
+      "name": "Menu1",
       "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "Mostrando opções para Saldo",
-        "replyMarkup": "replyKeyboard",
-        "replyKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Consultar Saldo",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Atualizar Saldo",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Adicionar Saldo",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "replyKeyboardOptions": {},
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1120,
-        256
-      ],
-      "id": "ef59205a-9273-4697-8a7f-583f20605224",
-      "name": "Saldo",
-      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "=Seu saldo total é de {{ $json['Saldo atual'] }}",
         "replyMarkup": "replyKeyboard",
         "replyKeyboard": {
@@ -733,15 +508,15 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1312,
-        400
+        464,
+        752
       ],
-      "id": "cdc8ffda-0c92-447a-a83b-139e03793bd7",
-      "name": "Consultar Saldo",
+      "id": "bd0864bd-6ecf-4d23-8b36-2527095ef022",
+      "name": "Consultar Saldo1",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -760,7 +535,7 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Saldo",
                     "operator": {
                       "type": "string",
@@ -783,7 +558,7 @@
                 "conditions": [
                   {
                     "id": "2a147dde-295c-499e-bc2e-410c0d2b6fa1",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Consultar Saldo",
                     "operator": {
                       "type": "string",
@@ -806,7 +581,7 @@
                 "conditions": [
                   {
                     "id": "849a67ba-de40-4c0b-b65d-521bc3f1469f",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Atualizar Saldo",
                     "operator": {
                       "type": "string",
@@ -829,7 +604,7 @@
                 "conditions": [
                   {
                     "id": "a9793dbc-c378-482f-93e0-17268d514a34",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Adicionar Saldo",
                     "operator": {
                       "type": "string",
@@ -852,7 +627,7 @@
                 "conditions": [
                   {
                     "id": "6b851530-f26d-41b7-b492-b5d841fa038f",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Relatórios",
                     "operator": {
                       "type": "string",
@@ -875,7 +650,7 @@
                 "conditions": [
                   {
                     "id": "25572f96-45d9-46d9-b742-c7e3355d73d4",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Gastos Diário",
                     "operator": {
                       "type": "string",
@@ -898,7 +673,7 @@
                 "conditions": [
                   {
                     "id": "f25a99e8-351b-432a-8438-fd2396a39884",
-                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
                     "rightValue": "Gastos por Categoria",
                     "operator": {
                       "type": "string",
@@ -919,95 +694,33 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        624,
-        880
+        -224,
+        1232
       ],
-      "id": "9c465d6f-e7d6-402c-8a43-9617a0b84015",
-      "name": "Switch de opções"
+      "id": "c149df1d-d8c6-4bda-a360-a6c12e5cce44",
+      "name": "Switch de opções1"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "=Qual seu saldo total para a atualização",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Qual seu saldo total para a atualização \n\nDigite \"Cancelar\" para voltar ao menu",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        560
+        272,
+        912
       ],
-      "id": "a57e2bf0-739a-4370-b74c-9c5ed05b6767",
-      "name": "Atualizar Saldo",
+      "id": "e7eea4c7-b1e4-4687-a0d3-4b2ff36d6892",
+      "name": "Atualizar Saldo1",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Get Estado').item.json.Estado }}",
-                    "rightValue": "aguardando_atualizacao_saldo",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "8d66d59c-367c-498c-a834-f9640bddab70"
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                },
-                "conditions": [
-                  {
-                    "id": "8d21f633-de2f-491d-ae51-e66c87bc2b0e",
-                    "leftValue": "={{ $('Get Estado').item.json.Estado }}",
-                    "rightValue": "aguardando_adicionar_saldo",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.4,
-      "position": [
-        608,
-        240
-      ],
-      "id": "8321e055-c227-4ea2-a021-6dabc20e0c9b",
-      "name": "Switch"
     },
     {
       "parameters": {
@@ -1036,11 +749,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        320,
-        256
+        -528,
+        608
       ],
-      "id": "9cee9eac-7b07-4709-96ba-8a62acdccf01",
-      "name": "Aguardando dados?"
+      "id": "c3133f8b-25b5-4357-9fd8-ffeb5583d0ec",
+      "name": "Aguardando dados?1"
     },
     {
       "parameters": {
@@ -1061,14 +774,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        128,
-        256
+        -720,
+        608
       ],
-      "id": "5f3e2b29-2bec-4de9-89ac-9224b423c68f",
-      "name": "Get Estado",
+      "id": "afd45ac9-d8e0-477f-8146-2f792b64d70f",
+      "name": "Get Estado1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1128,14 +841,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        672,
-        1440
+        -400,
+        1696
       ],
-      "id": "b95ebd41-1963-4c3e-8ae1-0c3f8695cb51",
-      "name": "Update estado_padrao1",
+      "id": "4c4f51cd-b0ee-42e8-94e6-f1ab2dc060e8",
+      "name": "Update estado_padrao",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1159,14 +872,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1120,
-        400
+        272,
+        752
       ],
-      "id": "791a43e7-7bfb-4283-8758-660170d47fd4",
-      "name": "Get Saldo",
+      "id": "542225ab-0124-470f-97fe-0a703ca85b0e",
+      "name": "Get Saldo3",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1226,14 +939,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1424,
-        720
+        576,
+        1072
       ],
-      "id": "33d21fbf-b3b8-46f7-b7f4-380b611d07ba",
-      "name": "Update Estado_Padrao",
+      "id": "bdb7bf8e-f4ce-4c18-919d-c77e02081ad8",
+      "name": "Update Estado_Padrao2",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1257,7 +970,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "row_number": 2,
-            "Saldo atual": "={{ $('Telegram Trigger').item.json.message.text }}"
+            "Saldo atual": "={{ $('Telegram Trigger1').item.json.message.text }}"
           },
           "matchingColumns": [
             "row_number"
@@ -1292,80 +1005,80 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1264,
-        720
+        416,
+        1072
       ],
-      "id": "7348039a-a429-44a4-b3cf-b561aad4a9eb",
-      "name": "Update Saldo1",
+      "id": "d51d011d-3d8f-4a62-a3ea-3a013864fcc4",
+      "name": "Update Saldo2",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "=Saldo atualizado para {{ $('Update Saldo1').item.json['Saldo atual'] }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Saldo atualizado para {{ $('Update Saldo2').item.json['Saldo atual'] }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1584,
-        720
+        736,
+        1072
       ],
-      "id": "fc2c331e-d2f6-4fe9-bbe2-84838f6b8053",
-      "name": "Message Saldo Atualizado",
+      "id": "d36d2ac8-7ca6-4256-90b5-8948765d0085",
+      "name": "Message Saldo Atualizado2",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "Digite um numero maior ou igual a 0 para a atualizaçao do saldo",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1264,
-        896
+        416,
+        1248
       ],
-      "id": "35f27984-622f-463a-81bd-b22da3d3a11a",
-      "name": "Message Saldo Incorreto",
+      "id": "ca33354f-3280-4481-ba85-bf5558a6a4ff",
+      "name": "Message Saldo Incorreto4",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "=Qual o valor a adicionar?",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        1056
+        272,
+        1408
       ],
-      "id": "72c1c382-04ff-4621-b9b2-db330cd3a083",
-      "name": "Adicionar Saldo",
+      "id": "75225ad3-78c4-4952-be17-be368be2a0e4",
+      "name": "Adicionar Saldo1",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -1425,14 +1138,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1328,
-        560
+        480,
+        912
       ],
-      "id": "a7578b7b-044d-45fe-a0b3-5845a2202008",
-      "name": "Update Estado_Aguardando_Atualizar",
+      "id": "a26bd02f-4577-4901-bbb9-6c17734454a7",
+      "name": "Update Estado_Aguardando_Atualizar1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1492,14 +1205,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1296,
-        1056
+        448,
+        1408
       ],
-      "id": "d72257a4-00f3-4ba9-a0d9-dcad6056ffa1",
-      "name": "Update Estado_Aguardando_Adicionar",
+      "id": "b2640443-df52-470b-b4ce-af88e61eb83c",
+      "name": "Update Estado_Aguardando_Adicionar1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1516,7 +1229,7 @@
           "conditions": [
             {
               "id": "036dd66a-655f-4a67-88fc-60c83e8a5474",
-              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
               "rightValue": 0,
               "operator": {
                 "type": "number",
@@ -1532,31 +1245,31 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1104,
-        816
+        256,
+        1168
       ],
-      "id": "8418a695-3a88-4f38-b20c-aacb05b0a2d7",
-      "name": "É Numero?",
+      "id": "8bd7f9b0-4206-4da6-9e42-716f4a36f1ce",
+      "name": "É Numero?2",
       "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "Digite um numero maior ou igual a 0 para adicionar saldo",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1280,
-        1392
+        432,
+        1744
       ],
-      "id": "171f2ce5-7794-4636-a3da-3002f43f67bf",
-      "name": "Message Saldo Incorreto1",
+      "id": "21e9a800-8c1e-4298-a6c7-7bfbae8c8e20",
+      "name": "Message Saldo Incorreto5",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -1573,7 +1286,7 @@
           "conditions": [
             {
               "id": "036dd66a-655f-4a67-88fc-60c83e8a5474",
-              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
               "rightValue": 0,
               "operator": {
                 "type": "number",
@@ -1589,11 +1302,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1120,
-        1296
+        272,
+        1648
       ],
-      "id": "2297522e-343a-4830-a83a-e93048f17701",
-      "name": "É Numero?1",
+      "id": "1accc938-379d-41e5-bfa5-73091ee27413",
+      "name": "É Numero?3",
       "onError": "continueRegularOutput"
     },
     {
@@ -1615,7 +1328,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "row_number": 2,
-            "Saldo atual": "={{ Number($('Telegram Trigger').item.json.message.text) + Number($json['Saldo atual']) }}"
+            "Saldo atual": "={{ Number($('Telegram Trigger1').item.json.message.text) + Number($json['Saldo atual']) }}"
           },
           "matchingColumns": [
             "row_number"
@@ -1650,14 +1363,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1440,
-        1248
+        592,
+        1600
       ],
-      "id": "d00694ac-d271-4208-89e5-17b839ebf835",
-      "name": "Update Saldo",
+      "id": "f30ad96f-d2d3-4534-a551-91d638d3aef8",
+      "name": "Update Saldo3",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1681,14 +1394,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1280,
-        1248
+        432,
+        1600
       ],
-      "id": "17acb3e6-d575-4c32-9bf1-f7265d14f8a1",
-      "name": "Get Saldo1",
+      "id": "366f95c3-4fad-41b3-adb2-c321b0dc0510",
+      "name": "Get Saldo4",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
@@ -1748,36 +1461,36 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1600,
-        1248
+        752,
+        1600
       ],
-      "id": "a004f5a8-bf73-4e44-b9d8-a4f733208838",
-      "name": "Update Estado_Padrao1",
+      "id": "1eae70d2-3b43-4568-a254-e5dd8384e345",
+      "name": "Update Estado_Padrao3",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
         "text": "=Saldo adicionado! Valor do saldo atualizado: {{ $json['Saldo atual'] }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1888,
-        1248
+        1040,
+        1600
       ],
-      "id": "6edd3b10-dd43-4d36-8b7f-02aaa7d14ab6",
-      "name": "Message Saldo Atualizado1",
+      "id": "695a45dc-2bfe-451f-8ae2-4ad8155860cc",
+      "name": "Message Saldo Atualizado3",
       "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
+          "id": "WJLQKbYF3HMNMB5R",
           "name": "Telegram account"
         }
       }
@@ -1801,385 +1514,564 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1744,
-        1248
+        896,
+        1600
       ],
-      "id": "5c729fdb-3f7d-4306-95db-6a5a6ff71981",
-      "name": "Get Saldo2",
+      "id": "3aa03568-3b58-459c-8afd-dbb06c887d90",
+      "name": "Get Saldo5",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "2Ry6VVZXYpou5WmD",
+          "id": "oYmsiH2u0oly59Lu",
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Mostrando opções para Saldo",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Consultar Saldo",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Atualizar Saldo",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Adicionar Saldo",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        608
+      ],
+      "id": "51ab9d7f-795f-48b4-861e-769f19868c8a",
+      "name": "Opções Saldo1",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
+      "credentials": {
+        "telegramApi": {
+          "id": "WJLQKbYF3HMNMB5R",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Menu padrão",
+        "height": 224,
+        "width": 400,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        1648
+      ],
+      "typeVersion": 1,
+      "id": "b36007f4-eaff-44f4-b730-c763f8074386",
+      "name": "Sticky Note16"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "89dc684e-5fe2-427b-be6a-4d23541dee0d",
+              "leftValue": "={{ $json.descricao }}",
+              "rightValue": "Despesa não especificada",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "ff62c8c7-823a-4998-ac49-53408f65a1ef",
+              "leftValue": "={{ $json.valor }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -32,
+        336
+      ],
+      "id": "05f7a6bf-c172-4e91-b7c6-5f337e930930",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Infelizmente a IA está fora do ar no momento tente novamente mais tarde😶‍🌫️",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -512,
+        384
+      ],
+      "id": "64ddee67-7d77-4ae4-85a9-3f29942213fc",
+      "name": "Serviço indisponível1",
+      "webhookId": "c0c0386a-066c-41c7-bb7f-b9440631dca8",
+      "credentials": {
+        "telegramApi": {
+          "id": "WJLQKbYF3HMNMB5R",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
+                    "rightValue": "aguardando_atualizacao_saldo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "8d66d59c-367c-498c-a834-f9640bddab70"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "8d21f633-de2f-491d-ae51-e66c87bc2b0e",
+                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
+                    "rightValue": "aguardando_adicionar_saldo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        592
+      ],
+      "id": "96aca720-90b0-453a-994d-eca3c289e2c1",
+      "name": "Switch1"
     }
   ],
   "connections": {
-    "Update row in sheet": {
+    "Update row in sheet1": {
       "main": [
         [
           {
-            "node": "Send a text message",
+            "node": "Send a text message2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get row(s) in sheet": {
+    "Get row(s) in sheet1": {
       "main": [
         [
           {
-            "node": "Update row in sheet",
+            "node": "Update row in sheet1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Append or update row in sheet": {
+    "Append or update row in sheet1": {
       "main": [
         [
           {
-            "node": "Get row(s) in sheet",
+            "node": "Get row(s) in sheet1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code in JavaScript": {
+    "Code in JavaScript1": {
       "main": [
         [
           {
-            "node": "Append or update row in sheet",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Analyze audio": {
+    "Analyze audio1": {
       "main": [
         [
           {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Telegram GetFile (áudio)": {
-      "main": [
-        [
-          {
-            "node": "Analyze audio",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "É Áudio?": {
-      "main": [
-        [
-          {
-            "node": "Telegram GetFile (áudio)",
+            "node": "Code in JavaScript1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Get Estado",
+            "node": "Serviço indisponível1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Telegram Trigger": {
+    "Telegram GetFile (áudio)1": {
       "main": [
         [
           {
-            "node": "É Áudio?",
+            "node": "Analyze audio1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Download Grafico Diario": {
+    "É Áudio?1": {
       "main": [
         [
           {
-            "node": "Enviar Grafico Diario",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Grafico Categoria": {
-      "main": [
-        [
-          {
-            "node": "Enviar Grafico Categoria",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Menu": {
-      "main": [
-        [
-          {
-            "node": "Update estado_padrao1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch de opções": {
-      "main": [
-        [
-          {
-            "node": "Saldo",
+            "node": "Telegram GetFile (áudio)1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Get Saldo",
+            "node": "Get Estado1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "É Áudio?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menu1": {
+      "main": [
+        [
+          {
+            "node": "Update estado_padrao",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch de opções1": {
+      "main": [
+        [
+          {
+            "node": "Opções Saldo1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Atualizar Saldo",
+            "node": "Get Saldo3",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Adicionar Saldo",
+            "node": "Atualizar Saldo1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Send a text message3",
+            "node": "Adicionar Saldo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [],
+        [
+          {
+            "node": "Menu1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Saldo1": {
+      "main": [
+        [
+          {
+            "node": "Update Estado_Aguardando_Atualizar1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aguardando dados?1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Download Grafico Diario",
+            "node": "Switch de opções1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Estado1": {
+      "main": [
+        [
+          {
+            "node": "Aguardando dados?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Saldo3": {
+      "main": [
+        [
+          {
+            "node": "Consultar Saldo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Estado_Padrao2": {
+      "main": [
+        [
+          {
+            "node": "Message Saldo Atualizado2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Saldo2": {
+      "main": [
+        [
+          {
+            "node": "Update Estado_Padrao2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adicionar Saldo1": {
+      "main": [
+        [
+          {
+            "node": "Update Estado_Aguardando_Adicionar1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É Numero?2": {
+      "main": [
+        [
+          {
+            "node": "Update Saldo2",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Download Grafico Categoria",
+            "node": "Message Saldo Incorreto4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É Numero?3": {
+      "main": [
+        [
+          {
+            "node": "Get Saldo4",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Menu",
+            "node": "Message Saldo Incorreto5",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Atualizar Saldo": {
+    "Update Saldo3": {
       "main": [
         [
           {
-            "node": "Update Estado_Aguardando_Atualizar",
+            "node": "Update Estado_Padrao3",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Switch": {
+    "Get Saldo4": {
       "main": [
         [
           {
-            "node": "É Numero?",
+            "node": "Update Saldo3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Estado_Padrao3": {
+      "main": [
+        [
+          {
+            "node": "Get Saldo5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Saldo5": {
+      "main": [
+        [
+          {
+            "node": "Message Saldo Atualizado3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "É Numero?2",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "É Numero?1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Aguardando dados?": {
-      "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Switch de opções",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Estado": {
-      "main": [
-        [
-          {
-            "node": "Aguardando dados?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Saldo": {
-      "main": [
-        [
-          {
-            "node": "Consultar Saldo",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Estado_Padrao": {
-      "main": [
-        [
-          {
-            "node": "Message Saldo Atualizado",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Saldo1": {
-      "main": [
-        [
-          {
-            "node": "Update Estado_Padrao",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Adicionar Saldo": {
-      "main": [
-        [
-          {
-            "node": "Update Estado_Aguardando_Adicionar",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "É Numero?": {
-      "main": [
-        [
-          {
-            "node": "Update Saldo1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Message Saldo Incorreto",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "É Numero?1": {
-      "main": [
-        [
-          {
-            "node": "Get Saldo1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Message Saldo Incorreto1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Saldo": {
-      "main": [
-        [
-          {
-            "node": "Update Estado_Padrao1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Saldo1": {
-      "main": [
-        [
-          {
-            "node": "Update Saldo",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Estado_Padrao1": {
-      "main": [
-        [
-          {
-            "node": "Get Saldo2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Saldo2": {
-      "main": [
-        [
-          {
-            "node": "Message Saldo Atualizado1",
+            "node": "É Numero?3",
             "type": "main",
             "index": 0
           }
@@ -2190,6 +2082,6 @@
   "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "73ad8462663f4c3e50554e0b1dcf6c5ca76fe2bb2d798a5d4058a19b59da7064"
+    "instanceId": "35f0b84c839742f665edec916e5243d1b6540db23adc371e6396ca7ed1bdbdbb"
   }
 }
