@@ -2,28 +2,6 @@
   "nodes": [
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "Não consegui entender direito, diga novamente!\n\nLembrando que preciso obrigatóriamente de uma descrição e do valor gasto!",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1616,
-        -272
-      ],
-      "id": "af9f86f8-1592-4b49-94c7-8b3831ee0efd",
-      "name": "Não compreendido",
-      "webhookId": "0b1ef00d-82d3-4d93-84be-36a3c8cb9ad9",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "update",
         "documentId": {
           "__rl": true,
@@ -76,10 +54,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2256,
-        0
+        2624,
+        16
       ],
-      "id": "1c519403-4c52-476e-9dbf-46ea149edb1a",
+      "id": "cb4e6b39-66df-4800-b889-0f0d0a623bf0",
       "name": "Update row in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -107,10 +85,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2048,
-        0
+        2432,
+        16
       ],
-      "id": "6690ef2d-45c3-487f-94c1-12b717d15769",
+      "id": "67f74db5-3584-467f-a74e-b7f05fb7fff3",
       "name": "Get row(s) in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -212,10 +190,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1840,
-        0
+        2272,
+        16
       ],
-      "id": "276a8b7c-8430-4864-a045-8e0ecd46994c",
+      "id": "c900957d-46e8-4f8f-aaa6-e8ccdfa59898",
       "name": "Append or update row in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -233,12 +211,12 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2480,
-        0
+        2816,
+        16
       ],
-      "id": "b4b3915c-16a9-4f6f-b414-737af8fbea2f",
+      "id": "821f70bb-48b0-48a3-b303-f1ea7189540c",
       "name": "Send a text message2",
-      "webhookId": "501c9421-0a98-4341-8674-49ab7524f644",
+      "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -256,7 +234,7 @@
         1312,
         16
       ],
-      "id": "17affec9-fbca-435d-8383-a22cbcfc6501",
+      "id": "f15e5830-3912-4a9e-a4c7-b68ea2eccaba",
       "name": "Code in JavaScript1"
     },
     {
@@ -269,7 +247,7 @@
           "mode": "list",
           "cachedResultName": "models/gemini-2.5-flash"
         },
-        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é transcrever o áudio e extrair os seguintes dados de uma despesa:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada.\n- \"categoria\": classifique em uma das opções:\n[\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n\n- \"data\": use SEMPRE o formato DD-MM-YYYY.\n- Interprete datas relativas usando o horário de Brasília (America/Sao_Paulo UTC-3).\n- A data da mensagem é:\n{{ new Date($node[\"Telegram Trigger1\"].json.message.date * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0,10) }}\n\nRegras para datas:\n- “hoje” = data da mensagem\n- “ontem” = data da mensagem -1 dia\n- dias da semana = dia mais recente correspondente antes ou igual à data da mensagem\n\n- \"valor\":\n  - extraia o valor em reais como número decimal.\n  - aceite formatos como:\n    - \"45 reais\"\n    - \"R$ 23,50\"\n    - \"vinte e cinco reais\"\n  - se não houver valor, use 0.\n\n- Se mencionar forma de pagamento, adicionar:\n\"meio_pagamento\"\n\nExemplos:\n- pix\n- crédito\n- débito\n- dinheiro\n\nImportante:\n- Responda SOMENTE JSON válido.\n- Não escreva explicações.\n- Não use markdown.\n- Não use ```json.\n- Comece diretamente com \"{\"\n- Não invente informações.\n- Se não tiver certeza da categoria, use \"Outros\".\n- Se não for especificado descrição sempre retornar Null\n- Se não for especificado valor sempre retornar 0",
+        "text": "=Você é um assistente financeiro que analisa gravações de voz em português do Brasil.\nSua tarefa é transcrever o áudio e extrair os seguintes dados de uma despesa:\n\n{\n  \"descricao\": \"\",\n  \"categoria\": \"\",\n  \"data\": \"\",\n  \"valor\": 0\n}\n\nRegras:\n- \"descricao\": descreva em poucas palavras a despesa mencionada.\n- \"categoria\": classifique em uma das opções:\n[\"Alimentação\", \"Transporte\", \"Saúde\", \"Moradia\", \"Lazer\", \"Educação\", \"Outros\"].\n\n- \"data\": use SEMPRE o formato DD-MM-YYYY.\n- Interprete datas relativas usando o horário de Brasília (America/Sao_Paulo UTC-3).\n- A data da mensagem é:\n{{ new Date($node[\"Telegram Trigger1\"].json.message.date * 1000).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0,10) }}\n\nRegras para datas:\n- “hoje” = data da mensagem\n- “ontem” = data da mensagem -1 dia\n- dias da semana = dia mais recente correspondente antes ou igual à data da mensagem\n\n- \"valor\":\n  - extraia o valor em reais como número decimal.\n  - aceite formatos como:\n    - \"45 reais\"\n    - \"R$ 23,50\"\n    - \"vinte e cinco reais\"\n  - se não houver valor, use 0.\n\nImportante:\n- Responda SOMENTE JSON válido.\n- Não escreva explicações.\n- Não use markdown.\n- Não use ```json.\n- Comece diretamente com \"{\"\n- Não invente informações.\n- Se não tiver certeza da categoria, use \"Outros\".\n- Se não for especificado descrição sempre retornar Null\n- Se não for especificado valor sempre retornar 0\n- Se a entrada for somente um audio falando \"Cancelar\" preencher desta forma:\n{\n  \"descricao\": \"Cancelar\",\n  \"categoria\": \"Cancelar\",\n  \"data\": \"Cancelar\",\n  \"valor\": -1\n}",
         "inputType": "binary",
         "binaryPropertyName": "=data",
         "options": {}
@@ -280,7 +258,7 @@
         1024,
         -112
       ],
-      "id": "c5dd0428-7954-4a36-ba6a-c577ec02d62c",
+      "id": "c92f54d4-cf26-423a-8ff8-98f6e36096db",
       "name": "Analyze audio1",
       "credentials": {
         "googlePalmApi": {
@@ -296,7 +274,7 @@
         "fileId": "={{ $('Telegram Trigger1').item.json.message.voice.file_id }}",
         "additionalFields": {}
       },
-      "id": "de6af65d-5c6d-4b11-b322-7cf090b7b601",
+      "id": "61b26195-3b50-4fca-ac9f-70c569bcd254",
       "name": "Telegram GetFile (áudio)1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
@@ -304,7 +282,7 @@
         816,
         0
       ],
-      "webhookId": "cc1d782d-a292-453d-b508-bd704f126636",
+      "webhookId": "4c6deb3b-e345-4bc0-afb0-a71b019c5f63",
       "alwaysOutputData": true,
       "credentials": {
         "telegramApi": {
@@ -338,7 +316,7 @@
         },
         "options": {}
       },
-      "id": "7597fe4c-4c66-4502-801b-1b118fb42654",
+      "id": "98957ab7-2382-4c12-93bb-f3c9ae693264",
       "name": "É Áudio?1",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
@@ -357,7 +335,7 @@
           "download": true
         }
       },
-      "id": "952b5c3b-8bdb-4abc-bf31-8abc281321f2",
+      "id": "4b19b1e0-6598-42a0-bb01-ea2f2ebf91d3",
       "name": "Telegram Trigger1",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
@@ -365,7 +343,7 @@
         304,
         16
       ],
-      "webhookId": "14f3c85c-bc26-42d6-8024-2103d89dd125",
+      "webhookId": "6a299839-242f-42a2-adaf-8d6698933561",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -375,97 +353,7 @@
     },
     {
       "parameters": {
-        "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXzOIptNW6XJntTSlaB_l2zWZPk2H_yymbMU67aBX-b9gqkpwy5L_z0RUr49xIis1_LBMySOj8eE0p/pubchart?oid=1309474682&format=image",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "id": "4eb9f547-d4cc-4487-9736-67ea25595824",
-      "name": "Download Grafico Diario1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1856,
-        2096
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "binaryData": true,
-        "additionalFields": {
-          "caption": "📊 Relatório de Gastos por Dia"
-        }
-      },
-      "id": "14f71568-4fdd-4ebb-82f9-eff8a2e78666",
-      "name": "Enviar Grafico Diario1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2064,
-        2096
-      ],
-      "webhookId": "6d1159fa-2610-4366-8f1a-d2cf930e7ea3",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXzOIptNW6XJntTSlaB_l2zWZPk2H_yymbMU67aBX-b9gqkpwy5L_z0RUr49xIis1_LBMySOj8eE0p/pubchart?oid=2069983709&format=image",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "id": "7fe65230-4a81-44fa-9a09-4f8605b3cd1d",
-      "name": "Download Grafico Categoria1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1856,
-        1904
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "binaryData": true,
-        "additionalFields": {
-          "caption": "📊 Relatório de Gastos por Categoria"
-        }
-      },
-      "id": "4bf23533-511f-42f8-8425-483db5d6a873",
-      "name": "Enviar Grafico Categoria1",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2064,
-        1904
-      ],
-      "webhookId": "3509da77-1bd2-462d-ad83-1c8658545c6d",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": " # Saldo\n",
+        "content": " # Menu Saldo\n",
         "height": 1392,
         "width": 928,
         "color": 5
@@ -476,7 +364,7 @@
         1776,
         208
       ],
-      "id": "4f56e3ab-5643-40d0-9279-d892e0bd65f4",
+      "id": "4c79cc3e-cf35-4da3-a661-fc3cca9b432a",
       "name": "Sticky Note5"
     },
     {
@@ -492,7 +380,7 @@
         256,
         -80
       ],
-      "id": "1d82a501-24ba-46f2-a0f7-cd8f4dae44bb",
+      "id": "64b636c5-15f6-48e2-b23d-7969c635a7df",
       "name": "Sticky Note10"
     },
     {
@@ -508,7 +396,7 @@
         512,
         -112
       ],
-      "id": "f4d4e25b-55c1-4a07-8d2d-129d197cddb1",
+      "id": "0a69cd0f-ec4d-44f9-89c2-9eef7e235b5a",
       "name": "Sticky Note11"
     },
     {
@@ -524,7 +412,7 @@
         960,
         -272
       ],
-      "id": "7c3f4958-298a-4476-b3c4-931c2163e6d6",
+      "id": "0e4626d6-7435-49bb-b9cc-8c62f366eed9",
       "name": "Sticky Note12"
     },
     {
@@ -540,23 +428,23 @@
         1264,
         -112
       ],
-      "id": "49ef969c-3def-454c-884f-fe6becd7b40e",
+      "id": "a5cc6f94-e731-4c7c-82bb-b4c0df4e1edc",
       "name": "Sticky Note13"
     },
     {
       "parameters": {
-        "content": "## Google sheets\nCriação de linhas nas tabelas (registros das inclusões) e algoritmo (interno do google sheets para geração de planilhas )",
-        "height": 304,
-        "width": 656,
+        "content": "## Adicionar Gasto",
+        "height": 224,
+        "width": 784,
         "color": "#257B19"
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1744,
-        -112
+        2224,
+        -32
       ],
-      "id": "c2e4db6b-7b36-4768-a39b-dd14fec7c852",
+      "id": "d241fca6-7ae6-48e3-a5b8-fa0f9da5d071",
       "name": "Sticky Note14"
     },
     {
@@ -591,9 +479,9 @@
         928,
         1360
       ],
-      "id": "b2e1581c-ed9e-4e7d-b517-a8d7069bf0b3",
+      "id": "19e932a2-5cf3-42ff-bd8c-2a88ae8f9482",
       "name": "Menu1",
-      "webhookId": "f671900f-dd34-4624-951e-60d8b46d5cbc",
+      "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -639,9 +527,9 @@
         2000,
         416
       ],
-      "id": "1d23c295-2241-42ce-b9ff-d440b7b3a4a3",
+      "id": "9b878195-e15d-43dc-a1d9-fcf8f7ff79bd",
       "name": "Consultar Saldo1",
-      "webhookId": "891612c8-3d4d-47e5-a753-315bc06f5729",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -822,10 +710,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        1312,
-        896
+        1248,
+        656
       ],
-      "id": "3b27d186-4cd1-4fd2-92c5-b2625ee2890e",
+      "id": "9a54fb31-4aca-4a71-83e0-e0e74be31774",
       "name": "Switch de opções1"
     },
     {
@@ -840,100 +728,15 @@
         1808,
         576
       ],
-      "id": "57460dc5-fa3f-4e55-a745-da0f1081e3f2",
+      "id": "11451bb2-edd4-4308-8bf1-5f54c3373e7a",
       "name": "Atualizar Saldo1",
-      "webhookId": "04b9f777-476f-4ba3-a6be-8af2fe2596ff",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
           "name": "Telegram account"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                },
-                "conditions": [
-                  {
-                    "id": "7c30f06d-d930-453f-be6c-04877ff0b002",
-                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
-                    "rightValue": "Cancelar",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
-                    "rightValue": "aguardando_atualizacao_saldo",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "8d66d59c-367c-498c-a834-f9640bddab70"
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 3
-                },
-                "conditions": [
-                  {
-                    "id": "8d21f633-de2f-491d-ae51-e66c87bc2b0e",
-                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
-                    "rightValue": "aguardando_adicionar_saldo",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.4,
-      "position": [
-        1296,
-        256
-      ],
-      "id": "c8a22b11-d892-4638-8ba6-5c1c7d50bdf0",
-      "name": "Switch1"
     },
     {
       "parameters": {
@@ -965,7 +768,7 @@
         1008,
         272
       ],
-      "id": "b81b78cc-9c90-4070-90de-7299411d1b7d",
+      "id": "dcc52303-c944-440b-b262-d49da0f6c13f",
       "name": "Aguardando dados?1"
     },
     {
@@ -990,7 +793,7 @@
         816,
         272
       ],
-      "id": "cb547154-bfc7-476a-89c7-1237f6f36ccc",
+      "id": "b8f97199-a0c8-46e3-9b0e-8ec2fde8eb57",
       "name": "Get Estado1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1057,7 +860,7 @@
         1136,
         1360
       ],
-      "id": "16ff0d48-d3b4-4a88-bafc-597d09270f4e",
+      "id": "03e800eb-79cf-404b-af59-a0d03dedc9da",
       "name": "Update estado_padrao",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1088,7 +891,7 @@
         1808,
         416
       ],
-      "id": "4c6dd989-7709-4cbb-b95c-3993abba307e",
+      "id": "248750f1-8d9e-4948-93b1-c638f063b1b1",
       "name": "Get Saldo3",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1155,7 +958,7 @@
         2112,
         736
       ],
-      "id": "57ff9333-1ae7-490f-a2db-db378656f818",
+      "id": "7994bd37-efd5-4202-92c4-9fb93c1874a7",
       "name": "Update Estado_Padrao2",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1221,7 +1024,7 @@
         1952,
         736
       ],
-      "id": "1cbb140e-3d9f-4565-8028-dee39a217bb3",
+      "id": "b09c8d6c-50e4-41bd-aecd-74226308b3ca",
       "name": "Update Saldo2",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1242,9 +1045,9 @@
         2272,
         736
       ],
-      "id": "6e6e00d2-0f4d-4f30-9fc9-c9b5465dbf8a",
+      "id": "abd76626-2617-452d-bcf7-501dd80def6b",
       "name": "Message Saldo Atualizado2",
-      "webhookId": "d00c1204-1714-4290-a46e-2954a649204c",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1264,9 +1067,9 @@
         1952,
         912
       ],
-      "id": "82d8d625-ca68-4096-88e3-28c7abc2d5e8",
+      "id": "3eace536-9ae6-4f7a-b91a-ef2aba52a85b",
       "name": "Message Saldo Incorreto4",
-      "webhookId": "e50f51e5-48f8-4af8-94c3-bd59a3892bb1",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1286,9 +1089,9 @@
         1808,
         1072
       ],
-      "id": "5c3be1be-48f2-44b0-ada6-3687e85105a5",
+      "id": "6aa7f1ba-10e0-4b4a-996e-4240b5c599f8",
       "name": "Adicionar Saldo1",
-      "webhookId": "9c48495d-1fc9-4927-aaca-4d238d37eda4",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1354,7 +1157,7 @@
         2016,
         576
       ],
-      "id": "fcb41289-5c33-4514-b171-5f44f758ed50",
+      "id": "c5330729-c366-4e8f-aade-6f4841f25634",
       "name": "Update Estado_Aguardando_Atualizar1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1421,7 +1224,7 @@
         1984,
         1072
       ],
-      "id": "12980eea-a00c-4161-9425-4cb6b35907ed",
+      "id": "fb1c708c-b697-475b-856d-b755a0e6b01e",
       "name": "Update Estado_Aguardando_Adicionar1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1461,7 +1264,7 @@
         1792,
         832
       ],
-      "id": "860e1431-513e-4156-9dbc-c6512805b7d6",
+      "id": "7c3212f0-825c-4b16-8983-ec84cba64cbd",
       "name": "É Numero?2",
       "onError": "continueRegularOutput"
     },
@@ -1477,9 +1280,9 @@
         1968,
         1408
       ],
-      "id": "d17720ae-d715-4471-b426-30cfcffdf3c5",
+      "id": "53d1caa0-921a-4c78-9128-a3ae0fec7520",
       "name": "Message Saldo Incorreto5",
-      "webhookId": "02cd3cf2-a7c1-4062-821f-1de453b582e0",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1518,7 +1321,7 @@
         1808,
         1312
       ],
-      "id": "d1818c76-d261-419e-b1c4-81f3119b0196",
+      "id": "18924edf-2e92-4610-bcf2-057de560736f",
       "name": "É Numero?3",
       "onError": "continueRegularOutput"
     },
@@ -1579,7 +1382,7 @@
         2128,
         1264
       ],
-      "id": "84cd86c7-0429-4249-85aa-fdc62ae9a682",
+      "id": "62a85c25-eb42-4c41-b78f-cd160d16ab9c",
       "name": "Update Saldo3",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1610,7 +1413,7 @@
         1968,
         1264
       ],
-      "id": "268acbb4-80e3-4606-9269-9366406a19cd",
+      "id": "9910def5-521f-4871-9c33-f11c06651590",
       "name": "Get Saldo4",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1677,7 +1480,7 @@
         2288,
         1264
       ],
-      "id": "83097f2d-3c77-4768-9584-a55cd3851656",
+      "id": "8cb4be85-4ac4-48b9-99d8-12f1ac30f4d7",
       "name": "Update Estado_Padrao3",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1698,9 +1501,9 @@
         2576,
         1264
       ],
-      "id": "8ddb9141-34b1-4bd8-bfd9-eeee78c42c27",
+      "id": "8f01ae2c-3e0f-4ec4-9bb0-93febdb9d3eb",
       "name": "Message Saldo Atualizado3",
-      "webhookId": "43e013e1-48a6-4e28-9ae1-7db1b1e45274",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1730,75 +1533,12 @@
         2432,
         1264
       ],
-      "id": "3a92b8e2-04d3-4435-ae06-d298858209b5",
+      "id": "59c45b5c-e331-4b77-97d6-fff75b05b009",
       "name": "Get Saldo5",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "2Ry6VVZXYpou5WmD",
           "name": "Google Sheets account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Relatórios",
-        "height": 608,
-        "width": 928
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1776,
-        1632
-      ],
-      "typeVersion": 1,
-      "id": "2bb344bb-be2b-46f4-b2ba-77067304b5ea",
-      "name": "Sticky Note15"
-    },
-    {
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
-        "text": "Mostrando opções para relatórios",
-        "replyMarkup": "replyKeyboard",
-        "replyKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Gastos Diário",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "Gastos por Categoria",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "replyKeyboardOptions": {},
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        1856,
-        1712
-      ],
-      "id": "aea908a7-4eda-4851-b6c6-feb949a0410a",
-      "name": "Opções Relatórios1",
-      "webhookId": "8b96d72a-f164-46a0-a252-9ffaf6187bf5",
-      "credentials": {
-        "telegramApi": {
-          "id": "goG0y76cnfA9VniQ",
-          "name": "Telegram account"
         }
       }
     },
@@ -1850,9 +1590,9 @@
         1808,
         272
       ],
-      "id": "4e73806d-7d86-4385-9334-43620932485b",
+      "id": "f097d992-e244-4291-91a6-4ee66a07d9ac",
       "name": "Opções Saldo1",
-      "webhookId": "3e64dd80-0950-4d41-bfe9-8339a39b4b5e",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1873,51 +1613,8 @@
         1312
       ],
       "typeVersion": 1,
-      "id": "2726c57e-84b0-4e27-911b-199335f47707",
+      "id": "72477e0f-499e-4092-8f9e-b54fd3c8de68",
       "name": "Sticky Note16"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "89dc684e-5fe2-427b-be6a-4d23541dee0d",
-              "leftValue": "={{ $json.descricao }}",
-              "rightValue": "Despesa não especificada",
-              "operator": {
-                "type": "string",
-                "operation": "empty",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "ff62c8c7-823a-4998-ac49-53408f65a1ef",
-              "leftValue": "={{ $json.valor }}",
-              "rightValue": 0,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "or"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        1504,
-        0
-      ],
-      "id": "e4186cb9-eeb1-49ad-bd48-7f6098d4223e",
-      "name": "If1"
     },
     {
       "parameters": {
@@ -1931,9 +1628,604 @@
         1024,
         48
       ],
-      "id": "87774a95-9bcb-4c07-a9f1-7c7e1f0c3061",
+      "id": "12fe10fc-3774-4239-818c-8e3ea21116d8",
       "name": "Serviço indisponível1",
-      "webhookId": "68e523cc-8aee-4f53-b246-2c79c9192b84",
+      "webhookId": "c0c0386a-066c-41c7-bb7f-b9440631dca8",
+      "credentials": {
+        "telegramApi": {
+          "id": "goG0y76cnfA9VniQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "9268b589-c834-404f-b692-46e8497e7e61",
+                    "leftValue": "={{ $('Telegram Trigger1').item.json.message.text }}",
+                    "rightValue": "Cancelar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
+                    "rightValue": "aguardando_atualizacao_saldo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "8d66d59c-367c-498c-a834-f9640bddab70"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "8d21f633-de2f-491d-ae51-e66c87bc2b0e",
+                    "leftValue": "={{ $('Get Estado1').item.json.Estado }}",
+                    "rightValue": "aguardando_adicionar_saldo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1296,
+        256
+      ],
+      "id": "c468d092-1f95-4ab1-9485-6f018810744a",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXzOIptNW6XJntTSlaB_l2zWZPk2H_yymbMU67aBX-b9gqkpwy5L_z0RUr49xIis1_LBMySOj8eE0p/pubchart?oid=1309474682&format=image",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "8ba6a46d-af4f-4ee1-ba3c-73ee37035e8a",
+      "name": "Download Grafico Diario1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        2080
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "📊 Relatório de Gastos por Dia"
+        }
+      },
+      "id": "47e5afe1-57ff-4205-8b51-05f9d6e701ec",
+      "name": "Enviar Grafico Diario1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        2080
+      ],
+      "webhookId": "a33db522-9638-4fc7-a6f6-5c1753de43d0",
+      "credentials": {
+        "telegramApi": {
+          "id": "goG0y76cnfA9VniQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXzOIptNW6XJntTSlaB_l2zWZPk2H_yymbMU67aBX-b9gqkpwy5L_z0RUr49xIis1_LBMySOj8eE0p/pubchart?oid=2069983709&format=image",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "44fb6247-e744-4e7b-b94e-80afde164d60",
+      "name": "Download Grafico Categoria1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "📊 Relatório de Gastos por Categoria"
+        }
+      },
+      "id": "c4188e53-824d-498e-ae94-c78f00fd7e7b",
+      "name": "Enviar Grafico Categoria1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        1888
+      ],
+      "webhookId": "c37809f5-7b40-420b-be26-c2fb23426686",
+      "credentials": {
+        "telegramApi": {
+          "id": "goG0y76cnfA9VniQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Menu Relatórios",
+        "height": 608,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1776,
+        1632
+      ],
+      "typeVersion": 1,
+      "id": "39f657a2-663e-4569-8678-94eb625571ed",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Mostrando opções para relatórios",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Gastos Diário",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Gastos por Categoria",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {},
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1808,
+        1696
+      ],
+      "id": "f9813243-5528-4a21-8d73-dee3fcc34981",
+      "name": "Opções Relatórios1",
+      "webhookId": "132aeacc-5848-40b8-96dc-ec5ac5810824",
+      "credentials": {
+        "telegramApi": {
+          "id": "goG0y76cnfA9VniQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "46480b8a-dcfa-4328-a8d9-2790642cb7df",
+                    "leftValue": "={{ $json.descricao }}",
+                    "rightValue": "Cancelar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.descricao }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "empty",
+                      "singleValue": true
+                    },
+                    "id": "daa76839-f05d-4cf5-a2dc-a0cac6e40537"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "56d7d0b8-f59e-4ed6-81ea-8536a8a90cb4",
+                    "leftValue": "={{ $json.valor }}",
+                    "rightValue": 0,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1552,
+        -48
+      ],
+      "id": "dd0719ea-1047-47f8-b6a1-cfdc1c6266dc",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Gastos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2144,
+        -256
+      ],
+      "id": "d1093524-626e-4fbd-857d-c7b383bc9d60",
+      "name": "Linhas",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $items(\"Linhas\");\n\nconst ultimaLinha = rows[rows.length - 1];\n\nreturn [{\n  ultima_row: ultimaLinha.json.row_number\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        -256
+      ],
+      "id": "a8003281-7e80-4b92-8eca-8a56e3bc260c",
+      "name": "Get Numero de linhas"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Gastos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=0"
+        },
+        "startIndex": "={{ $('Get Numero de linhas').item.json.ultima_row }}"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3072,
+        -256
+      ],
+      "id": "16bf76c1-0e09-46fc-b8d4-22e7aa733508",
+      "name": "Delete ultima linha",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Despesa cancelada com sucesso! ✅ \n\nSeu saldo atual é de {{ $('Update Saldo').item.json['Saldo atual'] }}\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3280,
+        -256
+      ],
+      "id": "47fef9d3-f56d-45a1-9a24-6bbed6b9c5db",
+      "name": "Send a text message",
+      "webhookId": "20574220-0b4b-443b-ba61-43d19731ea00",
+      "credentials": {
+        "telegramApi": {
+          "id": "goG0y76cnfA9VniQ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1191341900,
+          "mode": "list",
+          "cachedResultName": "Saldo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=1191341900"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2480,
+        -256
+      ],
+      "id": "5c245433-bf8e-4017-8b83-5891ffd821d7",
+      "name": "Get Saldo",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Gastos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Id",
+              "lookupValue": "={{ $('Get Numero de linhas').item.json.ultima_row -1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2688,
+        -256
+      ],
+      "id": "6da18d47-a70b-4531-af6f-8c638c452add",
+      "name": "Get Valor da despesa",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1191341900,
+          "mode": "list",
+          "cachedResultName": "Saldo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18k31VvY9P7iIjA9xgkFOF0QhYGsFvFpyclTiQ-1zeNs/edit#gid=1191341900"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 2,
+            "Saldo atual": "={{ $('Get Saldo').item.json['Saldo atual'] + $json.Valor}}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Saldo atual",
+              "displayName": "Saldo atual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2880,
+        -256
+      ],
+      "id": "4e1bb522-63c6-4d1d-a4bf-045e12d7b160",
+      "name": "Update Saldo",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2Ry6VVZXYpou5WmD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Cancelamento de gastos",
+        "height": 240,
+        "width": 1344,
+        "color": "#257B19"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        -320
+      ],
+      "id": "b50c52bc-7f46-42b5-9219-288cc5bcb4fc",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Não consegui entender direito, diga novamente!\n\nLembrando que preciso obrigatóriamente de uma descrição e do valor gasto!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1824,
+        -288
+      ],
+      "id": "9cb16076-35f9-4237-a6a5-85f1c684155b",
+      "name": "Não compreendido",
+      "webhookId": "f12ba0eb-6ff9-4e36-80cd-3ca3cbf56db6",
       "credentials": {
         "telegramApi": {
           "id": "goG0y76cnfA9VniQ",
@@ -1980,7 +2272,7 @@
       "main": [
         [
           {
-            "node": "If1",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
@@ -2039,28 +2331,6 @@
         [
           {
             "node": "É Áudio?1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Grafico Diario1": {
-      "main": [
-        [
-          {
-            "node": "Enviar Grafico Diario1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Download Grafico Categoria1": {
-      "main": [
-        [
-          {
-            "node": "Enviar Grafico Categoria1",
             "type": "main",
             "index": 0
           }
@@ -2143,31 +2413,6 @@
         [
           {
             "node": "Update Estado_Aguardando_Atualizar1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch1": {
-      "main": [
-        [
-          {
-            "node": "Menu1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "É Numero?2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "É Numero?3",
             "type": "main",
             "index": 0
           }
@@ -2327,8 +2572,69 @@
         ]
       ]
     },
-    "If1": {
+    "Switch1": {
       "main": [
+        [
+          {
+            "node": "Menu1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "É Numero?2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "É Numero?3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Grafico Diario1": {
+      "main": [
+        [
+          {
+            "node": "Enviar Grafico Diario1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Grafico Categoria1": {
+      "main": [
+        [
+          {
+            "node": "Enviar Grafico Categoria1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Linhas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Não compreendido",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Não compreendido",
@@ -2339,6 +2645,72 @@
         [
           {
             "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Linhas": {
+      "main": [
+        [
+          {
+            "node": "Get Numero de linhas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Numero de linhas": {
+      "main": [
+        [
+          {
+            "node": "Get Saldo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete ultima linha": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Saldo": {
+      "main": [
+        [
+          {
+            "node": "Get Valor da despesa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Valor da despesa": {
+      "main": [
+        [
+          {
+            "node": "Update Saldo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Saldo": {
+      "main": [
+        [
+          {
+            "node": "Delete ultima linha",
             "type": "main",
             "index": 0
           }
