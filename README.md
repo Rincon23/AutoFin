@@ -1,7 +1,5 @@
-# 🤖 Automação de Controle Financeiro por Áudio (Telegram + n8n + Gemini + Notion)
-
-Automação inteligente que permite registrar despesas financeiras **apenas enviando um áudio no Telegram**.
-O sistema transcreve, interpreta e salva automaticamente os dados no Notion.
+💸 Bot de Controle de Gastos — Telegram + N8N
+Assistente pessoal de finanças via Telegram, construído com N8N. Registra despesas por mensagem de voz, gerencia saldo e gera relatórios visuais — tudo integrado ao Google Sheets.
 
 ---
 
@@ -15,187 +13,123 @@ O sistema transcreve, interpreta e salva automaticamente os dados no Notion.
   * Categoria
   * Data
   * Valor
-* 🗂️ Salva os dados diretamente no Notion
+* 📊 Preenche os dados diretamente no Google Sheets
 * ✅ Retorna confirmação no Telegram
 
 ---
 
-## 🧩 Arquitetura do Fluxo
+## 🛠️ Tecnologias
+
+| Ferramenta | Uso |
+|---|---|
+| [N8N](https://n8n.io) | Orquestração do fluxo de automação |
+| [Telegram Bot API](https://core.telegram.org/bots/api) | Interface de comunicação com o usuário |
+| [Google Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/) | Transcrição e interpretação de áudios |
+| [Google Sheets](https://sheets.google.com) | Armazenamento de gastos, saldo e estado do chat |
+
+---
+
+## 🗂️ Estrutura do Google Sheets
+
+O projeto utiliza uma planilha com três abas principais:
+
+### `Gastos`
+Registra cada despesa com as colunas:
+
+| Id | Descrição | Data | Valor | Dia | Categoria | Este mês |
+|---|---|---|---|---|---|---|
+
+### `Saldo`
+Armazena o saldo atual do usuário (linha 2, coluna `Saldo atual`).
+
+### `Estado do chat`
+Controla o estado da conversa para fluxos de múltiplos passos:
+
+| Estado | Descrição |
+|---|---|
+| `padrao` | Estado inicial / sem ação pendente |
+| `aguardando_atualizacao_saldo` | Aguardando novo valor para substituir o saldo |
+| `aguardando_adicionar_saldo` | Aguardando valor a somar ao saldo |
+
+---
+
+## 🏗️ Arquitetura do Fluxo
 
 ```mermaid
 graph LR
-A[Telegram Trigger] --> B{É Áudio?}
-B -->|Sim| C[Telegram GetFile]
-C --> D[Gemini AI - Analyze Audio]
-D --> E[Code - Parse JSON]
-E --> F[Notion - Criar Registro]
-F --> G[Telegram - Confirmação]
+  A[Telegram Trigger] --> B{É Áudio?}
+  B -->|Sim| C[Telegram GetFile]
+  C --> D[Gemini AI - Analyze Audio]
+  D --> E[Code - Parse JSON]
+  E --> F[Notion - Criar Registro]
+  F --> G[Telegram - Confirmação]
 ```
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-* **n8n** → Orquestração da automação
-* **Telegram Bot API** → Entrada de dados via áudio
-* **Google Gemini (AI)** → Transcrição e interpretação
-* **Notion API** → Armazenamento dos dados
-
----
-
-## 📥 Entrada esperada
-
-Envie um áudio no Telegram com algo como:
-
-> "Gastei 45 reais no almoço hoje"
-
----
-
-## 📤 Saída gerada
-
-```json
-{
-  "descricao": "almoço no restaurante",
-  "categoria": "Alimentação",
-  "data": "2026-05-04",
-  "valor": 45
-}
-```
-
----
-
-## 🧠 Prompt da IA (Gemini)
-
-A IA foi cuidadosamente instruída para:
-
-* Transcrever o áudio
-* Interpretar contexto (ex: "hoje", "ontem")
-* Classificar automaticamente a categoria
-* Retornar **apenas JSON válido**
-
-### Categorias suportadas:
-
-* Alimentação
-* Transporte
-* Saúde
-* Moradia
-* Lazer
-* Educação
-* Outros
-
----
 
 ## ⚙️ Configuração
 
-### 1. Telegram
+### Pré-requisitos
 
-* Crie um bot via **@BotFather**
-* Copie o token
-* Configure no node `Telegram Trigger`
+- Instância do N8N (Sendo utilizado via domínio "HTTPS")
+- Bot do Telegram criado via [@BotFather](https://t.me/BotFather)
+- Conta Google com acesso ao Google Sheets
+- Chave de API do Google Gemini 
 
----
 
-### 2. Google Gemini
+### Passos
 
-* Gere uma API Key no Google AI Studio
-* Configure no node `Google Gemini`
-
----
-
-### 3. Notion
-
-Crie um database com os campos:
-
-| Campo     | Tipo   |
-| --------- | ------ |
-| Descrição | Title  |
-| Categoria | Select |
-| Valor     | Number |
-| Data      | Date   |
-
-* Conecte sua integração
-* Copie o `database_id`
+1. **Importe o fluxo** no N8N usando o arquivo JSON do projeto
+2. **Configure as credenciais:**
+   - `telegramApi` — token do seu bot
+   - `googleSheetsOAuth2Api` — OAuth2 da conta Google
+   - `googlePalmApi` — chave da API do Gemini
+3. **Crie a planilha** no Google Sheets conforme planilha versionada.
+4. **Ative o webhook** do Telegram Trigger no N8N
+5. **Publique os gráficos** da planilha como imagem (Arquivo → Publicar na web → Gráfico → Imagem) e atualize as URLs nos nós `Download Grafico Diario1` e `Download Grafico Categoria1`
 
 ---
 
-### 4. n8n
+## 💬 Como Usar
 
-* Importe o JSON do workflow
-* Configure as credenciais:
+| Ação | Como fazer |
+|---|---|
+| Registrar gasto | Envie um áudio: *"Gastei 45 reais no mercado hoje"* |
+| Cancelar último gasto | Envie um áudio: *"Cancelar"* |
+| Ver saldo | Toque em **Saldo → Consultar Saldo** |
+| Atualizar saldo | Toque em **Saldo → Atualizar Saldo** e envie o valor |
+| Adicionar ao saldo | Toque em **Saldo → Adicionar Saldo** e envie o valor |
+| Ver relatório | Toque em **Relatórios → Gastos Diário** ou **Gastos por Categoria** |
 
-  * Telegram
-  * Gemini
-  * Notion
-
----
-
-## 🧪 Lógica do Código (Parsing)
-
-O node de código:
-
-* Remove markdown (` ```json `)
-* Faz parse seguro do JSON
-* Garante fallback:
-
-```javascript
-descricao: ''
-categoria: 'Outros'
-data: hoje
-valor: 0
-```
+### Categorias reconhecidas pelo bot
+`Alimentação` · `Transporte` · `Saúde` · `Moradia` · `Lazer` · `Educação` · `Outros`
 
 ---
 
-## ⚠️ Possíveis Problemas
+## 📋 Tratamento de Erros
 
-### ❌ Áudio não reconhecido
-
-* Verifique se é `audio/ogg`
-
-### ❌ Erro de JSON
-
-* O modelo pode retornar texto inválido
-* Já tratado com sanitização no código
-
-### ❌ Valor não identificado
-
-* Retorna automaticamente `0`
+| Situação | Comportamento |
+|---|---|
+| Áudio sem descrição | Mensagem pedindo para repetir com descrição e valor |
+| Áudio sem valor | Mensagem pedindo para repetir com descrição e valor |
+| Gemini indisponível | Mensagem informando que o serviço está fora do ar |
+| Valor inválido no saldo | Mensagem solicitando número maior ou igual a 0 |
 
 ---
 
-## 🔥 Melhorias Futuras
 
-* 📊 Dashboard automático (Supabase / Metabase)
-* 📈 Gráficos de gastos
-* 💳 Detecção de meio de pagamento
-* 🧾 OCR de recibos/imagens
-* 🗣️ Suporte a WhatsApp
-* 🔔 Alertas de gastos excessivos
+# 👨‍💻 Autores 👨‍💻
 
----
+Gabriel Mello
+Enzo Rincon 
+Luis Torres
+Vinicius Tobias
+Julia Moraes
+Ulisses Fernandes
 
-## 📸 Exemplo de Uso
-
-1. Usuário envia áudio 🎤
-2. IA entende:
-
-   > "Uber pro trabalho deu 23 reais ontem"
-3. Sistema salva automaticamente no Notion
-4. Retorno:
-
-```
-Despesa registrada com sucesso! ✅
-```
+O projeto foi desenvolvido para o estudo de automação financeira utilizando as seguintes automações: 
+*n8n + Telegram + Google Sheets + Gemini*.
 
 ---
 
-## 🧑‍💻 Autor
+# 📜 Licença
 
-Desenvolvido por Gabriel Mello🚀
-
----
-
-## ⭐ Contribuição
-
-
----
+Projeto desenvolvido para fins acadêmicos e educacionais.
