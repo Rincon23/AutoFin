@@ -1,4 +1,4 @@
-💸 Bot de Controle de Gastos — Telegram + N8N
+## 📱💰 Controle de Gastos -    <img width="23" height="23" alt="image" src="https://github.com/user-attachments/assets/9accef4c-10fe-474b-857c-c127cbfdd768"/> Telegram  +⚡n8n +🤖 Gemini +📈 Google Sheets
 Assistente pessoal de finanças via Telegram, construído com N8N. Registra despesas por mensagem de voz, gerencia saldo e gera relatórios visuais — tudo integrado ao Google Sheets.
 
 ---
@@ -53,17 +53,92 @@ Controla o estado da conversa para fluxos de múltiplos passos:
 
 ---
 
-## 🏗️ Arquitetura do Fluxo
+
+
+
+# 🏗️ Arquitetura Completa do Workflow n8n
 
 ```mermaid
-graph LR
-  A[Telegram Trigger] --> B{É Áudio?}
-  B -->|Sim| C[Telegram GetFile]
-  C --> D[Gemini AI - Analyze Audio]
-  D --> E[Code - Parse JSON]
-  E --> F[Notion - Criar Registro]
-  F --> G[Telegram - Confirmação]
+flowchart TD
+
+    A[📱 Telegram Trigger] --> B{🔍 É Áudio?}
+
+    B -- Sim --> C[🎤 Telegram Get File]
+    C --> D[🤖 Gemini - Analyze Audio]
+    D -- "✅ Sucesso (Main)" --> F[⚙️ Code - Parse JSON]
+    D -- "❌ Erro (Error)" --> G[❌ Serviço indisponível]
+
+    F --> I{🔀 Tratamento de Erros}
+
+    B -- Não --> H[📨 Mensagem de Texto]
+
+    I -- "Cancelar" --> J1[📋 Buscar Linhas]
+    J1 --> J2[🔢 Get Número da Última Linha]
+    J2 --> J3[💰 Get Saldo Atual]
+    J3 --> J4[📋 Get Valor da Despesa]
+    J4 --> J5[💾 Update Saldo]
+    J5 --> J6[🗑️ Delete Última Linha]
+    J6 --> J7[💬 Mensagem de Cancelamento]
+
+    I -- "Descrição vazia / Valor = 0" --> K[❌ Não compreendido]
+
+    I -- "Dados Válidos" --> L[📝 Adicionar Gasto]
+    L --> M[Append/Update Row - Gastos]
+    M --> N[Update Row - Saldo]
+    N --> O[💬 Mensagem de Confirmação do Gasto]
+
+    H --> O1[📊 Get Estado1]
+    O1 --> P{📌 Aguardando dados?}
+
+    P -- "Sim (estado ≠ padrão)" --> Q{🔀 Verificar Estado do Chat}
+    P -- "Não (estado = padrão)" --> U{🔀 Opções Gerais}
+
+    %% Bloco de retorno para Verificar Estado do Chat
+    subgraph Retorno_VEC
+        R1[💬 Menu1]
+        R1 --> R1a[🔁 Update Estado → padrao]
+    end
+
+    %% Bloco de retorno para Opções Gerais
+    subgraph Retorno_OG
+        R2[💬 Menu1]
+        R2 --> R2a[🔁 Update Estado → padrao]
+    end
+
+    Q -- "Cancelar" --> R1
+    Q -- "aguardando_atualizacao_saldo" --> S{🔢 É Número? >= 0}
+    S -- Sim --> S1[💾 Update Saldo2]
+    S1 --> S2[🔁 Update Estado → padrao]
+    S2 --> S3[💬 Saldo Atualizado]
+    S -- Não --> S4[❌ Número Inválido - Reenvia]
+
+    Q -- "aguardando_adicionar_saldo" --> T{🔢 É Número? >= 0}
+    T -- Sim --> T1[💰 Get Saldo4]
+    T1 --> T2[➕ Update Saldo3]
+    T2 --> T3[🔁 Update Estado → padrao]
+    T3 --> T4[💰 Get Saldo5]
+    T4 --> T5[💬 Saldo Atualizado com Adição]
+    T -- Não --> T6[❌ Número Inválido - Reenvia]
+
+    U -- "Saldo" --> V[📋 Mostrar Opções Saldo]
+    U -- "Consultar Saldo" --> W[💰 Get Saldo3]
+    W --> W1[💬 Enviar Saldo]
+    U -- "Atualizar Saldo" --> X[💬 Solicitar Novo Saldo]
+    X --> X1[🔁 Estado → aguardando_atualizacao_saldo]
+    U -- "Adicionar Saldo" --> Y[💬 Solicitar Valor]
+    Y --> Y1[🔁 Estado → aguardando_adicionar_saldo]
+    U -- "Relatórios" --> Z[📋 Opções Relatórios]
+    U -- "Gastos Diário" --> AA[📥 Download Gráfico Diário]
+    AA --> AA1[📤 Enviar Gráfico Diário]
+    U -- "Gastos por Categoria" --> AB[📥 Download Gráfico Categoria]
+    AB --> AB1[📤 Enviar Gráfico Categoria]
+    U -- "Outro (texto livre)" --> R2
 ```
+
+
+
+
+
 
 ## ⚙️ Configuração
 
