@@ -3,6 +3,32 @@ Assistente pessoal de finanças via Telegram, construído com N8N. Registra desp
 
 ---
 
+## 😫 O Problema
+
+Registrar gastos no dia a dia exige **digitar manualmente** cada detalhe (descrição, valor, data, categoria) em uma planilha ou aplicativo. No celular, isso é ainda mais cansativo e cheio de atritos:
+
+- Abrir a planilha, encontrar a célula certa e preencher linha por linha
+- Corrigir erros de digitação e formatação de valores
+- Perder tempo que poderia ser gasto com o que realmente importa
+
+**Consequência:** a maioria das pessoas desiste do controle financeiro em poucos dias, e os gastos voltam a passar despercebidos.
+
+## 💡 A Solução
+
+Um **bot no Telegram** que entende **áudio** e **texto**.  
+Você fala algo como:
+
+> “Gastei 25 reais no almoço hoje”
+
+E ele faz todo o trabalho:
+
+- 🎙️ **Transcreve** o áudio usando IA
+- 🧠 **Interpreta** automaticamente: descrição, valor, categoria e data (inclusive expressões como “ontem”)
+- 📊 **Lança a despesa** na planilha do Google Sheets
+- 💰 **Atualiza o saldo** e envia uma confirmação
+
+Tudo sem digitar uma única letra. Além de registrar gastos, o bot oferece comandos para consultar saldo, gerar gráficos e até cancelar o último lançamento – **totalmente por voz ou toque no menu**.
+
 ## ✨ Funcionalidades
 
 * 🎤 Recebe áudios via Telegram
