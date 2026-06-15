@@ -1,4 +1,11 @@
-## 📱💰 Controle de Gastos -    <img width="23" height="23" alt="image" src="https://github.com/user-attachments/assets/9accef4c-10fe-474b-857c-c127cbfdd768"/> Telegram  +⚡n8n +🤖 Gemini +📈 Google Sheets
+<h1 align="center"> AutoFin </h1>
+
+<p align="center">
+  <img src="./img/AutoFin-imgre.png" width="500">
+</p>
+
+
+
 Assistente pessoal de finanças via Telegram, construído com N8N. Registra despesas por mensagem de voz, gerencia saldo e gera relatórios visuais — tudo integrado ao Google Sheets.
 
 ---
@@ -50,7 +57,7 @@ Tudo sem digitar uma única letra. Além de registrar gastos, o bot oferece coma
 |---|---|
 | [N8N](https://n8n.io) | Orquestração do fluxo de automação |
 | [Telegram Bot API](https://core.telegram.org/bots/api) | Interface de comunicação com o usuário |
-| [Google Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/) | Transcrição e interpretação de áudios |
+| [Google Gemini](https://deepmind.google/technologies/gemini/) | Transcrição e interpretação de áudios |
 | [Google Sheets](https://sheets.google.com) | Armazenamento de gastos, saldo e estado do chat |
 
 ---
@@ -216,21 +223,18 @@ flowchart TD
 
 ---
 
-
 # 👨‍💻 Autores 👨‍💻
 
-Gabriel Mello
-Enzo Rincon 
-Luis Torres
-Vinicius Tobias
-Julia Moraes
-Ulisses Fernandes
+[Gabriel Mello](https://github.com/GabrielMello159)
 
-O projeto foi desenvolvido para o estudo de automação financeira utilizando as seguintes automações: 
-*n8n + Telegram + Google Sheets + Gemini*.
+[Enzo Rincon](https://github.com/Rincon23)
+
+[Luis Torres](https://github.com/LuisTorresGit)
+
+[Vinicius Tobias](https://github.com/vinitobias672003)
+
+[Julia Moraes](https://github.com/julinhafmm)
+
+[Ulisses Fernandes](https://github.com/Ulilos)
 
 ---
-
-# 📜 Licença
-
-Projeto desenvolvido para fins acadêmicos e educacionais.
